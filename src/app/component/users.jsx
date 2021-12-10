@@ -2,14 +2,22 @@ import React, { useState } from 'react'
 import api from '../api'
 import User from './user'
 import SearchStatus from './searchStatus'
+import Pagination from './pagination'
 
 const Users = ({users, ...rest}) => {
 
   const columnNames = ['Имя', 'Качества', 'Профессия', 'Встретился, раз', 'Оценка', 'Избранное','-']
 
+  const count = users.length
+  const pageSize = 4
+
+  const handlePageChange = (pageIndex) => {
+    console.log('page', pageIndex);
+  }
+
   return (
     <>
-      {users.length > 0 &&
+      {count > 0 &&
         <table className='table'>
           <thead>
             <tr>
@@ -21,6 +29,7 @@ const Users = ({users, ...rest}) => {
           </tbody>
         </table>
       }
+      <Pagination itemsCount={count} pageSize={pageSize} onPageChange={handlePageChange}/>
     </>
   )
 
