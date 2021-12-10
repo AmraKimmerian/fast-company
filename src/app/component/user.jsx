@@ -1,20 +1,35 @@
-import Quality from './quality'
-import Bookmark from './bookmark'
+import Quality from "./quality";
+import Bookmark from "./bookmark";
 
-const User = props => {
-
-  console.log(props)
+const User = (props) => {
   return (
     <tr>
-      <th scope='row'>{props.name}</th>
-      <td>{props.qualities.map(quality => <Quality key={quality._id} {...quality}/>)}</td>
+      <th scope="row">{props.name}</th>
+      <td>
+        {props.qualities.map((quality) => (
+          <Quality key={quality._id} {...quality} />
+        ))}
+      </td>
       <td>{props.profession.name}</td>
       <td>{props.completedMeetings}</td>
       <td>{props.rate}/5</td>
-      <td><Bookmark status={props.bookmark} onClick={() => props.onToggleBookmark(props._id)}/></td>
-      <td><button type='button' className='btn btn-danger' onClick={() => props.onDeleteUser(props._id)}>delete</button></td>
+      <td>
+        <Bookmark
+          status={props.bookmark}
+          onClick={() => props.onToggleBookmark(props._id)}
+        />
+      </td>
+      <td>
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={() => props.onDeleteUser(props._id)}
+        >
+          delete
+        </button>
+      </td>
     </tr>
-  )
-}
+  );
+};
 
-export default User
+export default User;

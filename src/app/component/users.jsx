@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import api from "../api";
 import User from "./user";
-import SearchStatus from "./searchStatus";
 import Pagination from "./pagination";
+import { paginate } from "../utils/paginate";
 
 const Users = ({ users, ...rest }) => {
   const columnNames = [
@@ -17,11 +16,13 @@ const Users = ({ users, ...rest }) => {
 
   const count = users.length;
   const pageSize = 4;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (pageIndex) => {
-    console.log("page", pageIndex);
+    setCurrentPage(pageIndex);
   };
 
+  const userCrop = paginate(users, currentPage, pageSize);
   return (
     <>
       {count > 0 && (
@@ -36,7 +37,7 @@ const Users = ({ users, ...rest }) => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {userCrop.map((user) => (
               <User key={user._id} {...user} {...rest} />
             ))}
           </tbody>
@@ -45,10 +46,11 @@ const Users = ({ users, ...rest }) => {
       <Pagination
         itemsCount={count}
         pageSize={pageSize}
+        currentPage={currentPage}
         onPageChange={handlePageChange}
       />
     </>
   );
 };
 
-export default Users
+export default Users;
