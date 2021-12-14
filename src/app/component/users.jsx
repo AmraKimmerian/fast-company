@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import User from "./user";
-import Pagination from "./pagination";
-import { paginate } from "../utils/paginate";
+import React, { useState } from 'react'
+import User from './user'
+import Pagination from './pagination'
+import { paginate } from '../utils/paginate'
 
 const Users = ({ users, ...rest }) => {
   const columnNames = [
-    "Имя",
-    "Качества",
-    "Профессия",
-    "Встретился, раз",
-    "Оценка",
-    "Избранное",
-    "-",
-  ];
+    'Имя',
+    'Качества',
+    'Профессия',
+    'Встретился, раз',
+    'Оценка',
+    'Избранное',
+    '-'
+  ]
 
-  const count = users.length;
-  const pageSize = 4;
-  const [currentPage, setCurrentPage] = useState(1);
+  const count = users.length
+  const pageSize = 4
+  const [currentPage, setCurrentPage] = useState(1)
 
   const handlePageChange = (pageIndex) => {
-    setCurrentPage(pageIndex);
-  };
+    setCurrentPage(pageIndex)
+  }
 
-  const userCrop = paginate(users, currentPage, pageSize);
+  const userCrop = paginate(users, currentPage, pageSize)
   return (
     <>
       {count > 0 && (
@@ -50,7 +50,7 @@ const Users = ({ users, ...rest }) => {
         onPageChange={handlePageChange}
       />
     </>
-  );
-};
+  )
+}
 
-export default Users;
+export default Users

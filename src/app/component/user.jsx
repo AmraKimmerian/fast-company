@@ -1,5 +1,5 @@
-import Quality from "./quality";
-import Bookmark from "./bookmark";
+import Quality from './quality'
+import Bookmark from './bookmark'
 
 const User = (props) => {
   return (
@@ -29,7 +29,7 @@ const User = (props) => {
         </button>
       </td>
     </tr>
-  );
-};
+  )
+}
 
-export default User;
+export default User

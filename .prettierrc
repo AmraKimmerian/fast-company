@@ -1,0 +1,15 @@
+{
+  "blank-lines": [
+    true,
+    {
+      "after-imports": 2,
+      "above-conditionals": 1,
+      "above-methods": 1
+    }
+  ],
+  "semi": false,
+  "singleQuote": true,
+  "useTabs": false,
+  "printWidth": 80,
+  "arrowParens": "avoid"
+}

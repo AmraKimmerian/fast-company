@@ -6,14 +6,15 @@ import SearchStatus from './component/searchStatus'
 const App = () => {
   const [users, setUsers] = useState(api.users.fetchAll())
 
-  const handleDeleteUser = userId => {
-    setUsers(users.filter(user => user._id !== userId ))
+  const handleDeleteUser = (userId) => {
+    setUsers(users.filter((user) => user._id !== userId))
   }
 
-  const handleToggleBookmark = userId => {
+  const handleToggleBookmark = (userId) => {
     console.log(userId)
-    setUsers(users.map(user => {
-        if (user._id === userId) return {...user, bookmark: !user.bookmark}
+    setUsers(
+      users.map((user) => {
+        if (user._id === userId) return { ...user, bookmark: !user.bookmark }
         return user
       })
     )
@@ -21,10 +22,13 @@ const App = () => {
 
   return (
     <>
-      <SearchStatus  usersCount={users.length} />
-      <Users users={users} onDeleteUser={handleDeleteUser} onToggleBookmark={handleToggleBookmark}/>
+      <SearchStatus usersCount={users.length} />
+      <Users
+        users={users}
+        onDeleteUser={handleDeleteUser}
+        onToggleBookmark={handleToggleBookmark}
+      />
     </>
-
   )
 }
 
