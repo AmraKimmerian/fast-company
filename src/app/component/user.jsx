@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import api from '../api'
 import QualitiesList from './qualitiesList'
+import PropTypes from 'prop-types'
 
 const User = ({ userId }) => {
   const [user, setUser] = useState()
@@ -35,5 +36,7 @@ const User = ({ userId }) => {
     <h1>Loading</h1>
   )
 }
-
+User.propTypes = {
+  userId: PropTypes.string.isRequired
+}
 export default User
