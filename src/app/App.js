@@ -1,4 +1,4 @@
-import NavBar from './component/navBar'
+import NavBar from './components/navBar'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Main from './layouts/main'
 import Login from './layouts/login'

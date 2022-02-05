@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
-import User from '../component/user'
-import UsersList from '../component/usersList'
+import User from '../components/user'
+import UsersList from '../components/usersList'
 
 const Users = () => {
   const params = useParams()
