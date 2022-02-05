@@ -6,6 +6,7 @@ import api from '../api'
 import SearchStatus from './searchStatus'
 import UserTable from './userTable'
 import _ from 'lodash'
+import SearchBar from './searchBar'
 
 const UsersList = () => {
   const pageSize = 8
@@ -15,6 +16,8 @@ const UsersList = () => {
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
 
   const [users, setUsers] = useState()
+
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     api.users.fetchAll().then((result) => {
@@ -40,6 +43,7 @@ const UsersList = () => {
   }
 
   const handleProfessionSelect = (item) => {
+    setSearchQuery('')
     setSelectedProf(item)
   }
 
@@ -56,11 +60,20 @@ const UsersList = () => {
 
   useEffect(() => {
     setCurrentPage(1)
-  }, [selectedProf])
+  }, [selectedProf, searchQuery])
+
+  const handleSearchChange = (word) => {
+    setSelectedProf(undefined)
+    setSearchQuery(word)
+  }
 
   if (users) {
     const filteredUser = selectedProf
       ? users.filter((user) => user.profession._id === selectedProf._id)
+      : searchQuery
+      ? users.filter((user) =>
+          user.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
       : users
     const count = filteredUser.length
     const sortedUsers = _.orderBy(filteredUser, [sortBy.path], [sortBy.order])
@@ -87,6 +100,10 @@ const UsersList = () => {
         )}
         <div className="d-flex flex-column">
           <SearchStatus usersCount={count} />
+          <SearchBar
+            word={searchQuery}
+            handleSearchChange={handleSearchChange}
+          />
           {count > 0 && (
             <UserTable
               users={userCrop}
