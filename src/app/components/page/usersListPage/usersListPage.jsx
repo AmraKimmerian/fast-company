@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Pagination from './pagination'
-import { paginate } from '../utils/paginate'
-import GroupList from './group-list'
-import api from '../api'
-import SearchStatus from './searchStatus'
-import UserTable from './userTable'
+import Pagination from '../../common/pagination'
+import { paginate } from '../../../utils/paginate'
+import GroupList from '../../common/group-list'
+import api from '../../../api'
+import SearchStatus from '../../ui/searchStatus'
+import UserTable from '../../ui/userTable'
 import _ from 'lodash'
-import SearchBar from './searchBar'
+import SearchBar from '../../common/searchBar'
 
-const UsersList = () => {
+const UsersListPage = () => {
   const pageSize = 8
   const [currentPage, setCurrentPage] = useState(1)
   const [professions, setProfessions] = useState()
@@ -52,7 +52,6 @@ const UsersList = () => {
   }
 
   useEffect(() => {
-    console.log('send request')
     api.professions.fetchAll().then((result) => {
       setProfessions(result)
     })
@@ -128,4 +127,4 @@ const UsersList = () => {
   return 'loading'
 }
 
-export default UsersList
+export default UsersListPage

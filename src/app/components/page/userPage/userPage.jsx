@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import api from '../api'
-import QualitiesList from './qualitiesList'
+import api from '../../../api'
+import Qualities from '../../ui/qualities'
 import PropTypes from 'prop-types'
 
-const User = ({ userId }) => {
+const UserPage = ({ userId }) => {
   const [user, setUser] = useState()
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const User = ({ userId }) => {
       <div className="card-body">
         <h5 className="card-title">{user.name}</h5>
         <h6 className="card-subtitle">{`Профессия: ${user.profession.name}`}</h6>
-        <QualitiesList qualities={user.qualities} />
+        <Qualities qualities={user.qualities} />
         <p className="xcard-tet">{`Встреч: ${user.completedMeetings}`}</p>
         <h6 className="card-subtitle">{`Рейтинг: ${user.rate}`}</h6>
         <button className="btn btn-primary mt-2" onClick={handleReturnToUsers}>
@@ -36,7 +36,7 @@ const User = ({ userId }) => {
     <h1>Loading</h1>
   )
 }
-User.propTypes = {
+UserPage.propTypes = {
   userId: PropTypes.string.isRequired
 }
-export default User
+export default UserPage

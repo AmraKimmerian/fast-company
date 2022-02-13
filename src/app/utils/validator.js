@@ -2,7 +2,11 @@ function validate(validateMethod, data, config) {
   let notValid
   switch (validateMethod) {
     case 'isRequired':
-      notValid = data.trim() === ''
+      if (typeof data === 'boolean') {
+        notValid = !data
+      } else {
+        notValid = data.trim() === ''
+      }
       break
 
     case 'isEmail':
