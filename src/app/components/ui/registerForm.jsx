@@ -69,7 +69,6 @@ const RegisterForm = () => {
   const validate = () => {
     const errors = validator(data, validatorConfig)
     setErrors(errors)
-    console.log('errors', errors)
     return Object.keys(errors).length === 0
   }
 
@@ -80,7 +79,6 @@ const RegisterForm = () => {
   }
 
   const isValid = Object.keys(errors).length === 0
-  console.log('errors', errors)
 
   return (
     <form onSubmit={handleSubmit}>
