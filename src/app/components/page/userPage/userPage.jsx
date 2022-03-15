@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import api from '../../../api'
-import Qualities from '../../ui/qualities'
 import PropTypes from 'prop-types'
+import UserCard from './userCard'
+import QualitiesCard from './qualitiesCard'
+import MeetingsCard from './meetingsCard'
+import Comments from './comments'
 
 const UserPage = ({ userId }) => {
   const params = useParams()
@@ -18,23 +21,32 @@ const UserPage = ({ userId }) => {
   // const handleReturnToUsers = () => {
   //   history.push('/users')
   // }
-  const handleClick = () => {
+  const handleEdit = () => {
     history.push(history.location.pathname + '/edit')
   }
 
   return user ? (
-    <div className="card m-1" style={{ width: '18rem' }}>
-      <div className="card-body">
-        <h5 className="card-title">{user.name}</h5>
-        <h6 className="card-subtitle">{`Профессия: ${
-          user.profession?.name || '??'
-        }`}</h6>
-        <Qualities qualities={user.qualities} />
-        <p className="xcard-tet">{`Встреч: ${user.completedMeetings}`}</p>
-        <h6 className="card-subtitle">{`Рейтинг: ${user.rate}`}</h6>
-        <button className="btn btn-primary mt-2" onClick={handleClick}>
-          Изменить
-        </button>
+    <div className="container">
+      <div className="row gutters-sm">
+        <div className="col-md-4 mb-3">
+          <div className="card mb-3">
+            <UserCard
+              name={user.name}
+              profession={user.profession?.name || '???'}
+              rate={user.rate}
+              handleEdit={handleEdit}
+            />
+          </div>
+          <div className="card mb-3">
+            <QualitiesCard qualities={user.qualities} />
+          </div>
+          <div className="card mb-3">
+            <MeetingsCard meetings={user.completedMeetings} />
+          </div>
+        </div>
+        <div className="col-md-8">
+          <Comments userId={userId} />
+        </div>
       </div>
     </div>
   ) : (
