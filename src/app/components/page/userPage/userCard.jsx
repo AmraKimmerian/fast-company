@@ -1,4 +1,12 @@
-const UserCard = ({ name, profession, rate, handleEdit }) => {
+import { useHistory } from 'react-router-dom'
+
+const UserCard = ({ name, profession, rate }) => {
+  const history = useHistory()
+
+  const handleEdit = () => {
+    history.push(history.location.pathname + '/edit')
+  }
+
   return (
     <div className="card-body">
       <button className="position-absolute top-0 end-0 btn btn-light btn-sm">
@@ -6,7 +14,9 @@ const UserCard = ({ name, profession, rate, handleEdit }) => {
       </button>
       <div className="d-flex flex-column align-items-center text-center position-relative">
         <img
-          src="https://avatars.dicebear.com/api/avataaars/qweqwdas.svg"
+          src={`https://avatars.dicebear.com/api/avataaars/${(Math.random() + 1)
+            .toString(36)
+            .substring(7)}.svg`}
           className="rounded-circle"
           width="150"
         />

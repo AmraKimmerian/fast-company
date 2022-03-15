@@ -8,7 +8,6 @@ import MeetingsCard from './meetingsCard'
 import Comments from './comments'
 
 const UserPage = ({ userId }) => {
-  const params = useParams()
   const [user, setUser] = useState()
 
   useEffect(() => {
@@ -16,14 +15,6 @@ const UserPage = ({ userId }) => {
       setUser(result)
     })
   }, [])
-
-  const history = useHistory()
-  // const handleReturnToUsers = () => {
-  //   history.push('/users')
-  // }
-  const handleEdit = () => {
-    history.push(history.location.pathname + '/edit')
-  }
 
   return user ? (
     <div className="container">
@@ -34,7 +25,6 @@ const UserPage = ({ userId }) => {
               name={user.name}
               profession={user.profession?.name || '???'}
               rate={user.rate}
-              handleEdit={handleEdit}
             />
           </div>
           <div className="card mb-3">
@@ -45,7 +35,7 @@ const UserPage = ({ userId }) => {
           </div>
         </div>
         <div className="col-md-8">
-          <Comments userId={userId} />
+          <Comments />
         </div>
       </div>
     </div>
