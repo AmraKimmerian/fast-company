@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import userService from '../services/user.service'
 import { toast } from 'react-toastify'
 import qualityService from '../services/qualitiy.service'
 
