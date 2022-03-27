@@ -41,7 +41,7 @@ const QualitiesProvider = ({ children }) => {
   }
   return (
     <QualityContext.Provider value={{ isLoading, qualities, getQuality }}>
-      {isLoading ? 'Loading...' : children}
+      {children}
     </QualityContext.Provider>
   )
 }
