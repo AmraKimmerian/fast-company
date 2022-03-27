@@ -7,6 +7,7 @@ import SearchStatus from '../../ui/searchStatus'
 import UserTable from '../../ui/userTable'
 import _ from 'lodash'
 import SearchBar from '../../common/searchBar'
+import { useUsers } from '../../../hooks/useUsers'
 
 const UsersListPage = () => {
   const pageSize = 8
@@ -15,27 +16,22 @@ const UsersListPage = () => {
   const [selectedProf, setSelectedProf] = useState()
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
 
-  const [users, setUsers] = useState()
+  const { users } = useUsers()
 
   const [searchQuery, setSearchQuery] = useState('')
 
-  useEffect(() => {
-    api.users.fetchAll().then((result) => {
-      setUsers(result)
-    })
-  }, [])
-
   const handleDelete = (userId) => {
-    setUsers(users.filter((user) => user._id !== userId))
+    // setUsers(users.filter((user) => user._id !== userId))
+    console.log(userId)
   }
 
   const handleToggleBookmark = (userId) => {
-    setUsers(
-      users.map((user) => {
-        if (user._id === userId) return { ...user, bookmark: !user.bookmark }
-        return user
-      })
-    )
+    const newArray = users.map((user) => {
+      if (user._id === userId) return { ...user, bookmark: !user.bookmark }
+      return user
+    })
+    // setUsers(newArray)
+    console.log(newArray)
   }
 
   const handlePageChange = (pageIndex) => {
