@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 
 const CheckBoxField = ({ name, value, onChange, error, children }) => {
-  console.log('error', error)
   const handleChange = () => {
     onChange({ name: name, value: !value })
   }

@@ -38,9 +38,7 @@ function validate(validateMethod, data, config) {
 
 export function validator(data, config) {
   const errors = {}
-  console.log('data', data)
   for (const fieldName in data) {
-    console.log('fieldName', fieldName)
     for (const validateMethod in config[fieldName]) {
       const error = validate(
         validateMethod,

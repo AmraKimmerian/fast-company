@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import TextField from './textField'
+
 const SelectField = ({
   label,
   value,
@@ -9,7 +9,6 @@ const SelectField = ({
   name,
   error
 }) => {
-  console.log('value', value)
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value })
   }
@@ -42,8 +41,8 @@ const SelectField = ({
         </option>
         {optionArray &&
           optionArray.map((option) => (
-            <option key={option._id} value={option._id}>
-              {option.name}
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
       </select>
