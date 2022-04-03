@@ -27,6 +27,16 @@ const AuthProvider = ({ children }) => {
       await createUser({ _id: data.localId, email, ...rest })
     } catch (error) {
       errorCatcher(error)
+      const { code, message } = error.response.data.error
+      console.log(code, message)
+      if (code === 400) {
+        if (message === 'EMAIL_EXISTS') {
+          const errorObject = {
+            email: 'Пользователь с таким email уже существует'
+          }
+          throw errorObject
+        }
+      }
     }
   }
 
