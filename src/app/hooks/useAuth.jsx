@@ -21,6 +21,7 @@ export const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState()
   const [error, setError] = useState(null)
+  const [isLoading, setLoading] = useState(true)
 
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
@@ -100,11 +101,15 @@ const AuthProvider = ({ children }) => {
       setCurrentUser(content)
     } catch (error) {
       errorCatcher(error)
+    } finally {
+      setLoading(false)
     }
   }
   useEffect(async () => {
     if (localStorageService.getAccessToken()) {
       getUserData()
+    } else {
+      setLoading(false)
     }
   }, [])
 
@@ -117,7 +122,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ signUp, signIn, currentUser }}>
-      {children}
+      {!isLoading ? children : 'Loading...'}
     </AuthContext.Provider>
   )
 }
