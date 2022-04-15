@@ -8,11 +8,12 @@ import UserTable from '../../ui/userTable'
 import _ from 'lodash'
 import SearchBar from '../../common/searchBar'
 import { useUsers } from '../../../hooks/useUsers'
+import { useProfessions } from '../../../hooks/useProfessions'
 
 const UsersListPage = () => {
   const pageSize = 8
+  const { professions, isLoading: professionsLoading } = useProfessions()
   const [currentPage, setCurrentPage] = useState(1)
-  const [professions, setProfessions] = useState()
   const [selectedProf, setSelectedProf] = useState()
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
 
@@ -48,12 +49,6 @@ const UsersListPage = () => {
   }
 
   useEffect(() => {
-    api.professions.fetchAll().then((result) => {
-      setProfessions(result)
-    })
-  }, [])
-
-  useEffect(() => {
     setCurrentPage(1)
   }, [selectedProf, searchQuery])
 
@@ -81,7 +76,7 @@ const UsersListPage = () => {
 
     return (
       <div className="d-flex">
-        {professions && (
+        {professions && !professionsLoading && (
           <div className="d-flex flex-column flex shrink-0 p-3">
             <GroupList
               items={professions}
