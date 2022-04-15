@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import userService from '../services/user.service'
@@ -22,10 +23,17 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState()
   const [error, setError] = useState(null)
   const [isLoading, setLoading] = useState(true)
-
+  const history = useHistory()
   function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
+
+  function logOut() {
+    localStorageService.removeAuthData()
+    setCurrentUser(null)
+    history.push('/')
+  }
+
   async function signUp({ email, password, ...rest }) {
     try {
       const { data } = await httpAuth.post(`accounts:signUp`, {
@@ -121,7 +129,7 @@ const AuthProvider = ({ children }) => {
   }, [error])
 
   return (
-    <AuthContext.Provider value={{ signUp, signIn, currentUser }}>
+    <AuthContext.Provider value={{ signUp, signIn, currentUser, logOut }}>
       {!isLoading ? children : 'Loading...'}
     </AuthContext.Provider>
   )

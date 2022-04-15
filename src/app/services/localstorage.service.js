@@ -15,6 +15,7 @@ export function setTokens({
   localStorage.setItem(USERID_KEY, localId)
   localStorage.setItem(EXPIRES_KEY, expiresDate)
 }
+
 export function getAccessToken() {
   return localStorage.getItem(TOKEN_KEY)
 }
@@ -26,14 +27,25 @@ export function getRefreshToken() {
 export function getTokenExpiresDate() {
   return localStorage.getItem(EXPIRES_KEY)
 }
+
 export function getUserId() {
   return localStorage.getItem(USERID_KEY)
 }
+
+export function removeAuthData() {
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(REFRESH_KEY)
+  localStorage.removeItem(USERID_KEY)
+  localStorage.removeItem(EXPIRES_KEY)
+}
+
 const localStorageService = {
   setTokens,
   getAccessToken,
   getRefreshToken,
   getTokenExpiresDate,
-  getUserId
+  getUserId,
+  removeAuthData
 }
+
 export default localStorageService
