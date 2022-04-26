@@ -1,21 +1,13 @@
-import { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import api from '../../../api'
 import PropTypes from 'prop-types'
 import UserCard from './userCard'
 import QualitiesCard from './qualitiesCard'
 import MeetingsCard from './meetingsCard'
 import Comments from './comments'
+import { useUsers } from '../../../hooks/useUsers'
 
 const UserPage = ({ userId }) => {
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-    api.users.getById(userId).then((result) => {
-      setUser(result)
-    })
-  }, [])
-
+  const { getUserById } = useUsers()
+  const user = getUserById(userId)
   return user ? (
     <div className="container">
       <div className="row gutters-sm">
@@ -25,6 +17,7 @@ const UserPage = ({ userId }) => {
               name={user.name}
               profession={user.profession?.name || '???'}
               rate={user.rate}
+              image={user.image}
             />
           </div>
           <div className="card mb-3">

@@ -1,25 +1,18 @@
 import { useHistory } from 'react-router-dom'
+import { useAuth } from '../../../hooks/useAuth'
 
-const UserCard = ({ name, profession, rate }) => {
+const UserCard = ({ name, profession, rate, image }) => {
   const history = useHistory()
-
   const handleEdit = () => {
     history.push(history.location.pathname + '/edit')
   }
-
   return (
     <div className="card-body">
       <button className="position-absolute top-0 end-0 btn btn-light btn-sm">
         <i className="bi bi-gear" onClick={handleEdit} />
       </button>
       <div className="d-flex flex-column align-items-center text-center position-relative">
-        <img
-          src={`https://avatars.dicebear.com/api/avataaars/${(Math.random() + 1)
-            .toString(36)
-            .substring(7)}.svg`}
-          className="rounded-circle"
-          width="150"
-        />
+        <img src={image} className="rounded-circle" width="150" />
         <div className="mt-3">
           <h4>{name}</h4>
           <p className="text-secondary mb-1">{profession}</p>
