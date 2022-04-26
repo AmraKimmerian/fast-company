@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react'
 import api from '../../../api'
 import { useParams } from 'react-router-dom'
 import { orderBy } from 'lodash'
+import { useComments } from '../../../hooks/useComments'
 
 const Comments = () => {
   const { userId } = useParams()
   const [comments, setComments] = useState()
+  const { createComment } = useComments()
   // const [users, setUsers] = useState()
   // const [toggleState, setToggleState] = useState(false)
 
@@ -18,9 +20,10 @@ const Comments = () => {
   }, [])
 
   const handleSubmit = (data) => {
-    api.comments
-      .add({ ...data, pageId: userId })
-      .then((data) => setComments({ ...comments, data }))
+    createComment(data)
+    // api.comments
+    //   .add({ ...data, pageId: userId })
+    //   .then((data) => setComments({ ...comments, data }))
   }
 
   const handleRemoveComment = (id) => {
