@@ -13,12 +13,7 @@ const UserPage = ({ userId }) => {
       <div className="row gutters-sm">
         <div className="col-md-4 mb-3">
           <div className="card mb-3">
-            <UserCard
-              name={user.name}
-              profession={user.profession?.name || '???'}
-              rate={user.rate}
-              image={user.image}
-            />
+            <UserCard user={user} />
           </div>
           <div className="card mb-3">
             <QualitiesCard qualities={user.qualities} />

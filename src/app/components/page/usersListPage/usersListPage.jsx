@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Pagination from '../../common/pagination'
 import { paginate } from '../../../utils/paginate'
 import GroupList from '../../common/group-list'
-import api from '../../../api'
 import SearchStatus from '../../ui/searchStatus'
 import UserTable from '../../ui/userTable'
 import _ from 'lodash'
 import SearchBar from '../../common/searchBar'
 import { useUsers } from '../../../hooks/useUsers'
 import { useProfessions } from '../../../hooks/useProfessions'
+import { useAuth } from '../../../hooks/useAuth'
 
 const UsersListPage = () => {
   const pageSize = 8
+  const { currentUser } = useAuth()
   const { professions, isLoading: professionsLoading } = useProfessions()
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedProf, setSelectedProf] = useState()
@@ -57,16 +58,21 @@ const UsersListPage = () => {
     setSearchQuery(word)
   }
 
-  if (users) {
-    const filteredUser = selectedProf
-      ? users.filter((user) => user.profession._id === selectedProf._id)
+  function filterUsers(data) {
+    const filteredUsers = selectedProf
+      ? data.filter((user) => user.profession._id === selectedProf._id)
       : searchQuery
-      ? users.filter((user) =>
+      ? data.filter((user) =>
           user.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
-      : users
-    const count = filteredUser.length
-    const sortedUsers = _.orderBy(filteredUser, [sortBy.path], [sortBy.order])
+      : data
+    return filteredUsers.filter((u) => u._id !== currentUser._id)
+  }
+
+  if (users) {
+    const filteredUsers = filterUsers(users)
+    const count = filteredUsers.length
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
 
     const userCrop = paginate(sortedUsers, currentPage, pageSize)
 
