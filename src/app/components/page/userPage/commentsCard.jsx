@@ -6,7 +6,7 @@ const CommentsCard = ({ comments, onRemove }) => {
       <h2>Comments</h2>
       <hr />
       {comments?.map((comment) => (
-        <Comment key={comment._id} comment={comment} onRemove={onRemove} />
+        <Comment key={comment._id} {...comment} onRemove={onRemove} />
       ))}
     </div>
   )
