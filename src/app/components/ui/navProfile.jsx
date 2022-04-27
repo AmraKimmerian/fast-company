@@ -8,7 +8,6 @@ const NavProfile = () => {
   const toggleMenu = () => {
     setOpen((prevState) => !prevState)
   }
-  console.log(isOpen)
   return (
     <div className="dropdown" onClick={toggleMenu}>
       <div className="btn dropdown-toggle d-flex align-items-center">
