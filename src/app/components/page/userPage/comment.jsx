@@ -1,5 +1,6 @@
 import { displayDate } from '../../../utils/displayDate'
 import { useUsers } from '../../../hooks/useUsers'
+import { useAuth } from '../../../hooks/useAuth'
 
 const Comment = ({
   content,
@@ -8,9 +9,9 @@ const Comment = ({
   userId,
   onRemove
 }) => {
+  const { currentUser } = useAuth()
   const { getUserById } = useUsers()
   const user = getUserById(userId)
-
   return (
     <div className="bg-light card-body mb-3">
       <div className="row">
@@ -31,12 +32,14 @@ const Comment = ({
 
                     <span className="small">{displayDate(created)}</span>
                   </p>
-                  <button
-                    className="btn btn-sm text-primary d-flex align-items-center"
-                    onClick={() => onRemove(id)}
-                  >
-                    <i className="bi bi-x-lg" />
-                  </button>
+                  {currentUser._id === userId && (
+                    <button
+                      className="btn btn-sm text-primary d-flex align-items-center"
+                      onClick={() => onRemove(id)}
+                    >
+                      <i className="bi bi-x-lg" />
+                    </button>
+                  )}
                 </div>
                 <p className="small mb-0">{content}</p>
               </div>
