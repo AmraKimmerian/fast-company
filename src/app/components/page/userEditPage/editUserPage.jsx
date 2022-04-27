@@ -25,24 +25,6 @@ const EditUserPage = () => {
   }))
   const [errors, setErrors] = useState({})
 
-  // const getProfessionById = (id) => {
-  //   for (const prof in professions) {
-  //     const profData = professions[prof]
-  //     if (profData._id === id) return profData
-  //   }
-  // }
-  // const getQualities = (elements) => {
-  //   const qualitiesArray = []
-  //   for (const elem of elements) {
-  //     for (const quality in qualities) {
-  //       if (elem.value === qualities[quality]._id) {
-  //         qualitiesArray.push(qualities[quality])
-  //       }
-  //     }
-  //   }
-  //   return qualitiesArray
-  // }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     const isValid = validate()
@@ -54,14 +36,6 @@ const EditUserPage = () => {
     console.log(qs)
     await updateUserData(qs)
     history.push(`/users/${currentUser._id}`)
-    // const { profession, qualities } = data
-    // api.users
-    //   .update(userId, {
-    //     ...data,
-    //     profession: getProfessionById(profession),
-    //     qualities: getQualities(qualities)
-    //   })
-    //   .then((data) => history.push(`/users/${data._id}`))
   }
 
   const transformData = (data) => {
@@ -90,14 +64,6 @@ const EditUserPage = () => {
         qualities: transformData(currentUser.qualities)
       })
     }
-    // api.users.getById(userId).then(({ profession, qualities, ...data }) => {
-    //   setData((prevState) => ({
-    //     ...prevState,
-    //     ...data,
-    //     qualities: transformData(qualities),
-    //     profession: profession._id
-    //   }))
-    // })
   }, [professionsLoading, qualitiesLoading, currentUser, data])
 
   useEffect(() => {
