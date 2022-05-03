@@ -6,13 +6,15 @@ const qualitiesSlice = createSlice({
   initialState: {
     entities: null,
     isLoading: true,
-    error: null
+    error: null,
+    lastFetch: null
   },
   reducers: {
     qualitiesRequested: (state) => {
       state.isLoading = true
     },
     qualitiesReceived: (state, action) => {
+      state.lastFetch = Date.now()
       state.entities = action.payload
       state.isLoading = false
     },
@@ -27,7 +29,12 @@ const { reducer: qualitiesReducer, actions } = qualitiesSlice
 const { qualitiesRequested, qualitiesReceived, qualitiesRequestFailed } =
   actions
 
-export const loadQualitiesList = () => async (dispatch) => {
+function isOutdated(date) {
+  return Date.now() - date > 10 * 60 * 1000
+}
+export const loadQualitiesList = () => async (dispatch, getState) => {
+  const { lastFetch } = getState().qualities
+  if (!isOutdated(lastFetch)) return
   dispatch(qualitiesRequested())
   try {
     const { content } = await qualityService.fetchAll()

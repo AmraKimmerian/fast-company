@@ -1,16 +1,24 @@
 import Quality from './quality'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   getQualitiesByIds,
-  getQualitiesLoadingStatus
+  getQualitiesLoadingStatus,
+  loadQualitiesList
 } from '../../../store/qualities'
+import { useEffect } from 'react'
 
 const QualitiesList = ({ qualities }) => {
-  console.log(qualities)
+  const dispatch = useDispatch()
   const isLoading = useSelector(getQualitiesLoadingStatus())
   if (isLoading) return 'Loading...'
   const qualitiesList = useSelector(getQualitiesByIds(qualities))
+
+  // Основная загрузка qualities происходит при монтировании App,
+  // а  знесь для обновления qualities, если вдруг на сервере они изменятся
+  useEffect(() => {
+    dispatch(loadQualitiesList())
+  }, [])
 
   return (
     <>
