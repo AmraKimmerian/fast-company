@@ -23,7 +23,7 @@ const QualitiesProvider = ({ children }) => {
   }, [error])
   async function getQualities() {
     try {
-      const { content } = await qualityService.get()
+      const { content } = await qualityService.fetchAll()
       setQualities(content)
       setLoading(false)
     } catch (error) {

@@ -9,8 +9,17 @@ import { ProfessionProvider } from './hooks/useProfessions'
 import QualitiesProvider from './hooks/useQualities'
 import AuthProvider from './hooks/useAuth'
 import ProtectedRoute from './components/common/protectedRoute'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { loadQualitiesList } from './store/qualities'
 
 const App = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(loadQualitiesList())
+  }, [])
+
   return (
     <>
       <AuthProvider>
