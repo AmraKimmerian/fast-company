@@ -3,14 +3,15 @@ import { useHistory } from 'react-router-dom'
 import TextField from '../common/form/textField'
 import { validator } from '../../utils/validator'
 import CheckBoxField from '../common/form/checkBoxField'
-import { useAuth } from '../../hooks/useAuth'
+import { useDispatch } from 'react-redux'
+import { login } from '../../store/users'
 //import * as yup from 'yup' // npm i yup - удобный валидатор
 const LoginForm = () => {
   const history = useHistory()
+  const dispatch = useDispatch()
   const [data, setData] = useState({ email: '', password: '', stayOn: false })
   const [errors, setErrors] = useState({})
   const [enterError, setEnterError] = useState(null)
-  const { signIn } = useAuth()
   const handleChange = (target) => {
     setData((prevState) => ({ ...prevState, [target.name]: target.value }))
     setEnterError(null)
@@ -34,20 +35,15 @@ const LoginForm = () => {
     return Object.keys(errors).length === 0
   }
 
-  const handleSubmit = async (e) => {
+  const redirect = history.location.state?.from.pathname
+    ? history.location.state.from.pathname
+    : '/'
+
+  const handleSubmit = (e) => {
     e.preventDefault()
     if (!validate()) return
-    try {
-      await signIn(data)
 
-      history.push(
-        history.location.state?.from.pathname
-          ? history.location.state.from.pathname
-          : '/'
-      )
-    } catch (error) {
-      setEnterError(error.message)
-    }
+    dispatch(login({ payload: data, redirect }))
   }
 
   const isValid = Object.keys(errors).length === 0
