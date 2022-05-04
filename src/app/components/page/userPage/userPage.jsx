@@ -3,12 +3,12 @@ import UserCard from './userCard'
 import QualitiesCard from './qualitiesCard'
 import MeetingsCard from './meetingsCard'
 import Comments from './comments'
-import { useUsers } from '../../../hooks/useUsers'
 import { CommentsProvider } from '../../../hooks/useComments'
+import { useSelector } from 'react-redux'
+import { getUserById } from '../../../store/users'
 
 const UserPage = ({ userId }) => {
-  const { getUserById } = useUsers()
-  const user = getUserById(userId)
+  const user = useSelector(getUserById(userId))
   return user ? (
     <div className="container">
       <div className="row gutters-sm">

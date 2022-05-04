@@ -1,6 +1,7 @@
 import { displayDate } from '../../../utils/displayDate'
-import { useUsers } from '../../../hooks/useUsers'
 import { useAuth } from '../../../hooks/useAuth'
+import { getUserById } from '../../../store/users'
+import { useSelector } from 'react-redux'
 
 const Comment = ({
   content,
@@ -10,8 +11,8 @@ const Comment = ({
   onRemove
 }) => {
   const { currentUser } = useAuth()
-  const { getUserById } = useUsers()
-  const user = getUserById(userId)
+
+  const user = useSelector(getUserById(userId))
   return (
     <div className="bg-light card-body mb-3">
       <div className="row">

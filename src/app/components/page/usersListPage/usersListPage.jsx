@@ -6,13 +6,13 @@ import SearchStatus from '../../ui/searchStatus'
 import UserTable from '../../ui/userTable'
 import _ from 'lodash'
 import SearchBar from '../../common/searchBar'
-import { useUsers } from '../../../hooks/useUsers'
 import { useAuth } from '../../../hooks/useAuth'
 import { useSelector } from 'react-redux'
 import {
   getProfessions,
   getProfessionsLoadingStatus
 } from '../../../store/professions'
+import { getUsersList } from '../../../store/users'
 
 const UsersListPage = () => {
   const pageSize = 8
@@ -23,7 +23,7 @@ const UsersListPage = () => {
   const [selectedProf, setSelectedProf] = useState()
   const [sortBy, setSortBy] = useState({ path: 'name', order: 'asc' })
 
-  const { users } = useUsers()
+  const users = useSelector(getUsersList())
 
   const [searchQuery, setSearchQuery] = useState('')
 
