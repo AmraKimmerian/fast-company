@@ -6,17 +6,16 @@ import SearchStatus from '../../ui/searchStatus'
 import UserTable from '../../ui/userTable'
 import _ from 'lodash'
 import SearchBar from '../../common/searchBar'
-import { useAuth } from '../../../hooks/useAuth'
 import { useSelector } from 'react-redux'
 import {
   getProfessions,
   getProfessionsLoadingStatus
 } from '../../../store/professions'
-import { getUsersList } from '../../../store/users'
+import { getCurrentUserId, getUsersList } from '../../../store/users'
 
 const UsersListPage = () => {
   const pageSize = 8
-  const { currentUser } = useAuth()
+  const currentUserId = useSelector(getCurrentUserId())
   const professions = useSelector(getProfessions())
   const professionsLoading = useSelector(getProfessionsLoadingStatus())
   const [currentPage, setCurrentPage] = useState(1)
@@ -71,7 +70,7 @@ const UsersListPage = () => {
           user.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
       : data
-    return filteredUsers.filter((u) => u._id !== currentUser._id)
+    return filteredUsers.filter((u) => u._id !== currentUserId)
   }
 
   if (users) {
