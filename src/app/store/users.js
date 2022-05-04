@@ -4,6 +4,7 @@ import userService from '../services/user.service'
 import authService from '../services/authService'
 import localStorageService from '../services/localstorage.service'
 import { createAction } from '@reduxjs/toolkit'
+import history from '../utils/history'
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
@@ -40,7 +41,7 @@ const usersSlice = createSlice({
       if (!Array.isArray(state.entities)) {
         state.entities = []
       }
-      state.entities.push = action.payload
+      state.entities.push(action.payload)
     }
   }
 })
@@ -92,6 +93,7 @@ function createUser(payload) {
     try {
       const { content } = await userService.create(payload)
       dispatch(userCreated(content))
+      history.push('/users')
     } catch (error) {
       dispatch(userCreateFailed(error.message))
     }
