@@ -1,8 +1,12 @@
 import { useHistory } from 'react-router-dom'
 import { useAuth } from '../../../hooks/useAuth'
+import { useSelector } from 'react-redux'
+import { getProfessionById } from '../../../store/professions'
 
 const UserCard = ({ user }) => {
   const { name, profession, rate, image, _id } = user
+  console.log('p', profession)
+  const prof = useSelector(getProfessionById(profession))
   const history = useHistory()
   const { currentUser } = useAuth()
   const handleEdit = () => {
@@ -20,7 +24,7 @@ const UserCard = ({ user }) => {
         <img alt="avatar" src={image} className="rounded-circle" width="150" />
         <div className="mt-3">
           <h4>{name}</h4>
-          <p className="text-secondary mb-1">{profession?.name || '???'}</p>
+          <p className="text-secondary mb-1">{prof?.name || '???'}</p>
           <div className="text-muted">
             <i className="bi bi-caret-down-fill text-primary" role="button" />
             <i className="bi bi-caret-up text-secondary" role="button" />
