@@ -5,7 +5,6 @@ import { getCurrentUserId } from '../../../store/users'
 
 const UserCard = ({ user }) => {
   const { name, profession, rate, image, _id } = user
-  console.log('p', profession)
   const prof = useSelector(getProfessionById(profession))
   const history = useHistory()
 
