@@ -5,6 +5,7 @@ import { useComments } from '../../../hooks/useComments'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import {
+  createComment,
   getComments,
   getCommentsLoadingStatus,
   loadCommentsList
@@ -19,11 +20,11 @@ const Comments = () => {
     dispatch(loadCommentsList(userId))
   }, [userId])
   const isLoading = useSelector(getCommentsLoadingStatus())
-  const { createComment, removeComment } = useComments()
+  const { removeComment } = useComments()
   const comments = useSelector(getComments())
 
   const handleSubmit = (data) => {
-    createComment(data)
+    dispatch(createComment({ ...data, pageId: userId }))
   }
 
   const handleRemoveComment = (id) => {
