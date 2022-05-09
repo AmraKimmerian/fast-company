@@ -20,8 +20,9 @@ async function start() {
   try {
     // Подключение к удаленной БД Монго ДБ
     await mongoose.connect(config.get("mongoUri"));
+    console.log(chalk.green("MongoDB connected"));
     app.listen(PORT, () => {
-      console.log(chalk.green(`server has been started on port ${PORT}`));
+      console.log(chalk.green(`server has been started on port 1 ${PORT}`));
     });
   } catch (error) {
     console.log(chalk.red(e.message));
