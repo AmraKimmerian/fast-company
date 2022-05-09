@@ -15,4 +15,5 @@ const schema = new Schema(
     timestamps: true,
   }
 );
+
 module.exports = model("Quality", schema);

@@ -12,4 +12,5 @@ const schema = new Schema(
     timestamps: true, // добавляет модели поля createdAt и updatedAt
   }
 );
+
 module.exports = model("Profession", schema);
