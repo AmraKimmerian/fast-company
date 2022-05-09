@@ -3,8 +3,8 @@ const router = express.Router({ mergeParams: true });
 
 // /api/auth
 router.use("/auth", require("./auth.routes"));
-router.use("/comment", require("./auth.routes"));
-router.use("/profession", require("./auth.routes"));
-router.use("/quality", require("./auth.routes"));
-router.use("/user", require("./auth.routes"));
+router.use("/comment", require("./comment.routes"));
+router.use("/profession", require("./profession.routes"));
+router.use("/quality", require("./quality.routes"));
+router.use("/user", require("./user.routes"));
 module.exports = router;
