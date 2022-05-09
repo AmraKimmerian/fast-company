@@ -16,6 +16,17 @@ const PORT = config.get("port") ?? 8080;
 //   console.log("Development");
 // }
 
-app.listen(PORT, () => {
-  console.log(chalk.green(`server has been started on port ${PORT}`));
-});
+async function start() {
+  try {
+    // Подключение к удаленной БД Монго ДБ
+    await mongoose.connect(config.get("mongoUri"));
+    app.listen(PORT, () => {
+      console.log(chalk.green(`server has been started on port ${PORT}`));
+    });
+  } catch (error) {
+    console.log(chalk.red(e.message));
+    process.exit(1);
+  }
+}
+
+start();
