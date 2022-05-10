@@ -15,6 +15,7 @@ router.post("/signUp", async (req, res) => {
   try {
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email });
+
     if (existingUser) {
       return res.status(400).json({
         error: {
@@ -23,13 +24,18 @@ router.post("/signUp", async (req, res) => {
         },
       });
     }
+
     const hashedPassword = await bcrypt.hash(password, 12); // salt 10 или 12
+
     const newUser = await User.create({
       ...generateUserData(),
       ...req.body,
       password: hashedPassword,
     });
+
     const tokens = tokenService.generate({ _id: newUser._id });
+    await tokenService.save(newUser._id, tokens.refreshToken);
+
     res.status(201).send({ ...tokens, userId: newUser._id });
   } catch (error) {
     res
