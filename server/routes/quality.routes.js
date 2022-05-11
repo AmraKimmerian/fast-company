@@ -4,6 +4,7 @@ const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res) => {
   try {
+    console.log("asdfasd");
     const list = await Quality.find();
     res.status(200).json(list);
   } catch (error) {
