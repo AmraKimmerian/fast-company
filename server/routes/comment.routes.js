@@ -11,9 +11,10 @@ router
       // orderBy - имя поля
       // equalTo - значение
       const { orderBy, equalTo } = req.query;
-      const comments = await Comment.find({ [orderBy]: equalTo });
+      const list = await Comment.find({ [orderBy]: equalTo });
       res.send(list);
     } catch (error) {
+      console.log("error", error.message);
       res
         .status(500)
         .json({ message: "На сервере произошла ошибка попробуйте позже" });
