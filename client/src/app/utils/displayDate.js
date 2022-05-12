@@ -1,5 +1,5 @@
 export function displayDate(data) {
-  const date = new Date(parseInt(data))
+  const date = new Date(data)
   const dateNow = new Date()
   const yearDif = dateNow.getFullYear() - date.getFullYear()
   if (yearDif === 0) {
@@ -13,7 +13,7 @@ export function displayDate(data) {
         if (minutesDif >= 5) return '5 минут назад'
         return '1 минуту назад'
       }
-      return `${date.getHours()}:${date.getMinutes()}}`
+      return `${date.getHours()}:${date.getMinutes()}`
     }
     return `${date.getDate()} ${date.toLocaleString('default', {
       month: 'long'

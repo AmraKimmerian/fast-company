@@ -75,14 +75,13 @@ const {
   usersRequestFailed,
   authRequestSuccess,
   authRequestFailed,
-  // userCreated,
+
   userLoggedOut,
   userUpdateSuccess
 } = actions
 
 const authRequested = createAction('users/authRequested')
-// const userCreateRequested = createAction('users/userCreateRequested')
-// const userCreateFailed = createAction('users/userCreateFailed')
+
 const userUpdateRequested = createAction('users/userUpdateRequested')
 const userUpdateFailed = createAction('users/userUpdateFailed')
 
@@ -93,7 +92,7 @@ export const login =
     dispatch(authRequested())
     try {
       const data = await authService.login({ email, password })
-      dispatch(authRequestSuccess({ userId: data.localId }))
+      dispatch(authRequestSuccess({ userId: data.userId }))
       localStorageService.setTokens(data)
       history.push(redirect)
     } catch (error) {
@@ -107,32 +106,6 @@ export const login =
     }
   }
 
-// export const signUp =
-//   ({ email, password, ...rest }) =>
-//   async (dispatch) => {
-//     dispatch(authRequested())
-//     try {
-//       const data = await authService.register({ email, password })
-//       localStorageService.setTokens(data)
-//       dispatch(authRequestSuccess({ userId: data.localId }))
-//       dispatch(
-//         createUser({
-//           _id: data.localId,
-//           email,
-//           rate: randomInt(1, 5),
-//           completedMeetings: randomInt(0, 200),
-//           image: `https://avatars.dicebear.com/api/avataaars/${(
-//             Math.random() + 1
-//           )
-//             .toString(36)
-//             .substring(7)}.svg`,
-//           ...rest
-//         })
-//       )
-//     } catch (error) {
-//       dispatch(authRequestFailed(error.message))
-//     }
-//   }
 export const signUp = (payload) => async (dispatch) => {
   dispatch(authRequested())
   try {
@@ -150,19 +123,6 @@ export const logout = () => (dispatch) => {
   history.push('/')
   dispatch(userLoggedOut())
 }
-
-// function createUser(payload) {
-//   return async (dispatch) => {
-//     dispatch(userCreateRequested())
-//     try {
-//       const { content } = await userService.create(payload)
-//       dispatch(userCreated(content))
-//       history.push('/users')
-//     } catch (error) {
-//       dispatch(userCreateFailed(error.message))
-//     }
-//   }
-// }
 
 export const loadUsersList = () => async (dispatch, getState) => {
   dispatch(usersRequested())
